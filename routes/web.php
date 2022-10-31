@@ -17,6 +17,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/test', function(){
+//     //keseluruhan
+//     return $user = Auth::user();
+
+//     //dg ID
+//     // return Auth::id();
+// });
+
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/test', [App\Http\Controllers\HomeController::class, 'test'])->name('test')->middleware('auth');
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
+
+Route::get('admin/home', [App\Http\Controllers\AdminController::class, 'index'])
+        ->name('admin.home')
+        ->middleware('isAdmin');
