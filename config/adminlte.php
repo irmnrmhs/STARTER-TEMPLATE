@@ -291,6 +291,13 @@ return [
 
     'menu' => [
         // Navbar items:
+
+        'menu' => [
+            'text' => 'Buku',
+            'url' => 'admin/books',
+            'icon' => 'fas fa-fw fa-book',
+            'can' => 'isAdmin',
+        ],
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
@@ -421,7 +428,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
