@@ -28,3 +28,13 @@ Auth::routes();
 // })->name('home')->middleware('auth');
 
 Route::get('admin/home', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home')->middleware('is_admin');
+Route::get('admin/books', [App\Http\Controllers\AdminController::class, 'books'])->name('admin.books')->middleware('is_admin');
+
+//Pengelolaan Buku
+Route::post('admin/books', [App\Http\Controllers\AdminController::class, 'submit_book'])->name('admin.book.submit')->middleware('is_admin');
+
+//Ubah Data
+Route::patch('admin/books/update', [App\Http\Controllers\AdminController::class, 'update_book'])->name('admin.book.update')->middleware('is_admin');
+
+Route::get('admin/ajaxadmin/databuku/{id}', [App\Http\Controllers\AdminController::class, 'getDataBuku']);
+Route::post('admin/books/delete/{id}', [App\Http\Controllers\AdminController::class, 'delete_book'])->name('admin.book.delete')->middleware('is_admin');
