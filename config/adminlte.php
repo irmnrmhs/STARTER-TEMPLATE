@@ -292,7 +292,7 @@ return [
     'menu' => [
         // Navbar items:
 
-        'menu' => [
+        [
             'text' => 'Buku',
             'url' => 'admin/books',
             'icon' => 'fas fa-fw fa-book',

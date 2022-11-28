@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\Book;
+use PDF;
 
 class AdminController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
     }
-
 
     public function index(){
         $user = Auth::user();
@@ -28,28 +28,32 @@ class AdminController extends Controller
     }
 
     public function submit_book(Request $req){
+
         $validate = $req->validate([
             'judul' => 'required|max:255',
             'penulis' =>'required',
             'tahun' =>'required',
             'penerbit' => 'required',
         ]);
-        $book = new book;
-        $book->judul = $request->get('judul');
-        $book->penulis = $request->get('penulis');
-        $book->tahun = $request->get('tahun');
-        $book->penerbit = $request->get('penerbit');
-        if($request->hasFile('cover')){
-            $extension = $request->file('cover')->extension();
+
+        $book = new Book;
+        $book->judul = $req->get('judul');
+        $book->penulis = $req->get('penulis');
+        $book->tahun = $req->get('tahun');
+        $book->penerbit = $req->get('penerbit');
+        if($req->hasFile('cover')){
+            $extension = $req->file('cover')->extension();
             $filename = 'cover_buku_'.time().'.'.$extension;
-            $request->file('cover')->storeAs('public/cover_buku', $filename);
+            $req->file('cover')->storeAs('public/cover_buku', $filename);
             $book->cover = $filename;
         }
+
         $book->save();
-        $notification = [
+
+        $notification = array(
             'message' => 'Data Buku Berhasil Ditambahkan',
             'alert-type' => 'success'
-        ];
+        );
     
         return redirect()->route('admin.books')->with($notification);
     }    
@@ -61,13 +65,13 @@ class AdminController extends Controller
     }
 
     public function update_book(Request $req){
-        $book = Book::find($req->get($id));
+        $book = Book::find($req->get('id'));
 
         $validate = $req->validate([
             'judul' => 'required|max:255',
             'penulis' => 'required',
             'tahun' => 'required',
-            'penerbit' => 'required'
+            'penerbit' => 'required',
         ]);
 
         $book->judul = $req->get('judul');
@@ -96,7 +100,7 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
 
-        return direct()->route('admin.books')->with($notification);
+        return redirect()->route('admin.books')->with($notification);
     }
 
     public function delete_book($id){
@@ -114,5 +118,12 @@ class AdminController extends Controller
             'success' => $success,
             'message' => $message,
         ]);
+    }
+
+    public function print_books(){
+        $books = Book::all();
+
+        $pdf = PDF::loadview('print_books',['books'=>$books]);
+        return $pdf->download('data_buku.pdf');
     }
 }
