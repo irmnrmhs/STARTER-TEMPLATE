@@ -19,6 +19,10 @@
                 <i class="fa fa-print"></i>
                 Cetak PDF
             </a>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{{ route('admin.book.export') }}" class="btn btn-info" target="_blank">Export</a>
+                <a href="" class="btn btn-warning">Import</a>
+            </div>
             <hr>
             <table id="table-data" class="table table-bordered">
                 <thead>
@@ -53,7 +57,7 @@
                                 <button type="button" id="btn-edit-buku" class="btn btn-success" data-toggle="modal" data-target="#editBukuModal" data-id="{{ $book->id }}">Edit</button>
                                 {{-- id="btn-hapus-buku" data-toggle="modal" data-target="#hapusBukuModal" data-id="{{$book->id}}" --}}
                                 {{-- onclick="deleteConfirmation('{{$book->id}}', '{{$book->judul}}')" --}}
-                                <button type="button" class="btn btn-danger" onclick="deleteConfirmation('{{$book->id}}', '{{$book->judul}}' )">Hapus</button>
+                                <button type="button" class="btn btn-danger" onclick="deleteConfirmation('{{ $book->id }}', '{{ $book->judul }}' )">Hapus</button>
                                 </div>
                             </td>
                     </tr>
@@ -63,7 +67,6 @@
         </div>
     </div>
 </div>
-{{-- @endsection --}}
 
 <div class="modal fade" id="tambahBukuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

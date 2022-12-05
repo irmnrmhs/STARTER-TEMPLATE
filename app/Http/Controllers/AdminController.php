@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 
 use App\Models\Book;
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BooksExport;
 
 class AdminController extends Controller
 {
@@ -82,7 +84,7 @@ class AdminController extends Controller
         if($req->hasFile('cover')){
             $extension = $req->file('cover')->extension();
 
-            $filename = 'cover_buku_'.time().'.'.$extension;
+            $filename = 'cover_buku_' . time(). '.' . $extension;
 
             $req->file('cover')->storeAs(
                 'public/cover_buku', $filename
@@ -125,5 +127,9 @@ class AdminController extends Controller
 
         $pdf = PDF::loadview('print_books',['books'=>$books]);
         return $pdf->download('data_buku.pdf');
+    }
+
+    public function export(){
+        return Excel::download(new BooksExport, 'books.xlsx');
     }
 }
