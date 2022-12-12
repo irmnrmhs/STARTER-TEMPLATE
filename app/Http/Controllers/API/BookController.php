@@ -13,9 +13,10 @@ class BookController extends Controller
     {
         try {
             $books = Book::all();
+
             return response()->json([
                 'message' => 'success',
-                'books' => $books
+                'books' => $books,
             ], 200);
         } catch (Exception $e) {
             return response()->json([

@@ -23,8 +23,6 @@ use App\Http\Controllers\API\BookController;
 Route::middleware('auth:sanctum')->group(function () {
 });
 
-Route::post('/login', [AuthController::class, 'login']);
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/books', [BookController::class, 'books']);
     Route::post('/book/create', [BookController::class, 'create']);

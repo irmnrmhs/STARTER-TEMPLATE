@@ -149,14 +149,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="edit-id"/>
                     <input type="hidden" name="old_cover" id="edit-old-cover"/>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-success">Update</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
